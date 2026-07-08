@@ -1,54 +1,63 @@
 import { slot4BrandConfig } from '@/editable/theme/brand.config'
 
+/*
+  Public copy — Reference Library platform.
+  Nav intentionally minimal: About + Contact only. Task-labels never surface in nav.
+  Footer discovery lists only the Reference Library (renamed pdf task).
+*/
+
 export const globalContent = {
   site: {
     name: slot4BrandConfig.siteName,
-    tagline: slot4BrandConfig.tagline || 'Independent reading platform',
+    tagline: slot4BrandConfig.tagline || 'A quiet reference library',
     domain: slot4BrandConfig.domain,
     baseUrl: slot4BrandConfig.baseUrl,
   },
   nav: {
-    tagline: 'Independent reading platform',
+    tagline: 'A reference library',
     primaryLinks: [
-      { label: 'Articles', href: '/articles' },
-      { label: 'Visuals', href: '/image-sharing' },
-      { label: 'Listings', href: '/listings' },
+      { label: 'About', href: '/about' },
       { label: 'Contact', href: '/contact' },
     ],
     actions: {
-      primary: { label: 'Start exploring', href: '/' },
-      secondary: { label: 'Submit', href: '/contact' },
+      primary: { label: 'Get started', href: '/signup' },
+      secondary: { label: 'Contribute', href: '/create' },
     },
   },
   footer: {
-    tagline: 'Stories, resources, and discoverable posts',
-    description: 'A connected publishing surface for articles, visuals, listings, profiles, bookmarks, and downloadable resources.',
+    tagline: 'Read, reference, cite.',
+    description: 'A carefully kept shelf of documents, guides, and reports — collected in one quiet place so a good reference is always a click away.',
     columns: [
       {
-        title: 'Explore',
+        title: 'Discover',
         links: [
-          { label: 'Articles', href: '/articles' },
-          { label: 'Listings', href: '/listings' },
-          { label: 'Images', href: '/image-sharing' },
-          { label: 'PDF Library', href: '/pdf' },
+          { label: 'Reference Library', href: '/pdf' },
         ],
       },
       {
-        title: 'Site',
+        title: 'Resources',
         links: [
           { label: 'About', href: '/about' },
           { label: 'Contact', href: '/contact' },
         ],
       },
+      {
+        title: 'Account',
+        links: [
+          { label: 'Sign in', href: '/login' },
+          { label: 'Get started', href: '/signup' },
+          { label: 'Contribute', href: '/create' },
+        ],
+      },
     ],
-    bottomNote: 'Built for clean discovery and connected publishing.',
+    bottomNote: 'A calm shelf of references — read, cite, and revisit.',
   },
   commonLabels: {
     readMore: 'Read more',
-    viewAll: 'View all',
-    explore: 'Explore',
-    latest: 'Latest',
-    related: 'Related',
-    published: 'Published',
+    viewAll: 'Browse the library',
+    explore: 'Open the library',
+    latest: 'Newly shelved',
+    related: 'Related on the shelf',
+    published: 'Filed',
   },
 } as const
