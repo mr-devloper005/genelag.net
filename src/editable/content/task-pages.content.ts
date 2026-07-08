@@ -9,61 +9,67 @@ export type TaskPageVoice = {
   chips: string[]
 }
 
+/*
+  Public copy applies to `pdf` (Reference Library) surfaces only.
+  Other task voices are kept for internal completeness but are not surfaced publicly.
+  `profile` copy is used ONLY on the direct-URL profile detail page.
+*/
+
 export const taskPageVoices = {
-  article: {
-    eyebrow: 'Reading desk',
-    headline: 'Long-form articles with a calmer editorial rhythm.',
-    description: 'Use this page for essays, guides, explainers, and story-led posts. The layout should feel like a publication, not a directory.',
-    filterLabel: 'Choose article topic',
-    secondaryNote: 'Reading surfaces need space, hierarchy, and fewer distractions.',
-    chips: ['Editorial pacing', 'Topic filters', 'Long-read friendly'],
-  },
-  classified: {
-    eyebrow: 'Notice board',
-    headline: 'Fast-moving classifieds, offers, and time-sensitive posts.',
-    description: 'Classified content should feel quick to scan, practical, and action-oriented with less editorial decoration.',
-    filterLabel: 'Filter classified category',
-    secondaryNote: 'Prioritize urgency, short summaries, and direct browsing.',
-    chips: ['Fast scan', 'Offers', 'Action cues'],
-  },
-  sbm: {
-    eyebrow: 'Saved resources',
-    headline: 'Social bookmarks arranged like curated collections.',
-    description: 'Bookmark pages should feel like shelves of useful resources, tools, references, and collections.',
-    filterLabel: 'Filter collection',
-    secondaryNote: 'Curated resources need grouping and calm metadata.',
-    chips: ['Collections', 'Resources', 'Reference flow'],
+  pdf: {
+    eyebrow: 'The Reference Library',
+    headline: 'A quiet shelf of documents, guides and reports.',
+    description: 'Every entry on the shelf is free to open, read and download. Browse by topic, or scan the most recent arrivals below.',
+    filterLabel: 'Filter by category',
+    secondaryNote: 'The shelf is added to slowly — new arrivals rise to the top of the room.',
+    chips: ['Free to read', 'Free to download', 'Free to cite'],
   },
   profile: {
-    eyebrow: 'People and profiles',
-    headline: 'Profiles with identity, trust, and reputation cues.',
-    description: 'Profile pages should make people, brands, and entities feel discoverable rather than buried in a generic feed.',
-    filterLabel: 'Filter profile category',
-    secondaryNote: 'Make identity and credibility visible before the grid begins.',
-    chips: ['Identity first', 'Trust cues', 'Creator/business cards'],
+    eyebrow: 'Contributor',
+    headline: 'A person behind the shelf.',
+    description: 'A brief record of a contributor and the documents they have filed to the library.',
+    filterLabel: 'Filter by focus',
+    secondaryNote: 'Contributors submit — they never sell.',
+    chips: ['On the shelf', 'Verified', 'Independent'],
   },
-  pdf: {
-    eyebrow: 'Document library',
-    headline: 'PDFs and documents presented as a useful library.',
-    description: 'PDF pages should feel like downloadable guides, reports, files, and reference material instead of normal articles.',
-    filterLabel: 'Filter document type',
-    secondaryNote: 'Document surfaces need archive cues, file context, and clear browsing.',
-    chips: ['Documents', 'Guides', 'Archive ready'],
+  article: {
+    eyebrow: 'Journal',
+    headline: 'Notes and essays from the reading room.',
+    description: 'Occasional writing that accompanies the library — background, context, and thinking.',
+    filterLabel: 'Filter by topic',
+    secondaryNote: 'Companion writing to the shelf itself.',
+    chips: ['Essays', 'Notes', 'Companion writing'],
+  },
+  classified: {
+    eyebrow: 'Notices',
+    headline: 'Occasional announcements and open calls.',
+    description: 'A slow noticeboard for things worth passing along.',
+    filterLabel: 'Filter notices',
+    secondaryNote: 'Rare and considered.',
+    chips: ['Notices', 'Open calls', 'Announcements'],
+  },
+  sbm: {
+    eyebrow: 'Marginalia',
+    headline: 'External links worth keeping.',
+    description: 'A small marginalia column of pointers to further reading elsewhere.',
+    filterLabel: 'Filter marginalia',
+    secondaryNote: 'Curated, not comprehensive.',
+    chips: ['Pointers', 'Further reading', 'Marginalia'],
   },
   listing: {
-    eyebrow: 'Business directory',
-    headline: 'Business listings built for discovery and comparison.',
-    description: 'Listing pages should behave like a directory with trust cues, metadata, and a practical search rhythm.',
-    filterLabel: 'Filter business category',
-    secondaryNote: 'Prioritize comparison, location, and direct action paths.',
-    chips: ['Directory', 'Compare', 'Business discovery'],
+    eyebrow: 'Index',
+    headline: 'A quiet index of noteworthy places.',
+    description: 'A companion index — kept for the archive.',
+    filterLabel: 'Filter index',
+    secondaryNote: 'A companion index.',
+    chips: ['Index', 'Companion', 'Archive'],
   },
   image: {
-    eyebrow: 'Visual gallery',
-    headline: 'Image posts with a gallery-first browsing experience.',
-    description: 'Image pages should lead with visual impact, stronger cards, and a portfolio-like rhythm.',
-    filterLabel: 'Filter visual category',
-    secondaryNote: 'Let images carry the page before long text does.',
-    chips: ['Gallery', 'Visual-first', 'Portfolio mood'],
+    eyebrow: 'Gallery',
+    headline: 'Visual studies and cover imagery.',
+    description: 'Occasional visual studies and cover illustrations.',
+    filterLabel: 'Filter studies',
+    secondaryNote: 'Visual companion to the shelf.',
+    chips: ['Cover art', 'Studies', 'Visual notes'],
   },
 } satisfies Record<TaskKey, TaskPageVoice>
