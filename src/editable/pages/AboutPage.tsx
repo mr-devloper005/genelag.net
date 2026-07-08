@@ -1,28 +1,51 @@
 import { SITE_CONFIG } from '@/lib/site-config'
 import { pagesContent } from '@/editable/content/pages.content'
 import { EditableSiteShell } from '@/editable/shell/EditableSiteShell'
+import { editableDesignContract as dc, editablePalette as pal } from '@/editable/layouts/design-contract'
+import { EditableReveal } from '@/editable/shell/EditableReveal'
 
 export default function AboutPage() {
   return (
     <EditableSiteShell>
-      <main className="px-4 py-14 sm:px-6 lg:px-8">
-        <section className="mx-auto grid max-w-[var(--editable-container)] gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-          <article className="rounded-sm border border-[var(--editable-border)] bg-[var(--slot4-surface-bg)] p-8 lg:p-12">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[var(--slot4-accent)]">{pagesContent.about.badge}</p>
-            <h1 className="editable-display mt-5 text-5xl font-semibold tracking-[-0.02em]">About {SITE_CONFIG.name}</h1>
-            <p className="mt-5 max-w-2xl text-base leading-8 text-[var(--slot4-muted-text)]">{pagesContent.about.description}</p>
-            <div className="mt-8 space-y-4 text-sm leading-8 text-[var(--slot4-muted-text)]">
-              {pagesContent.about.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-            </div>
-          </article>
-          <aside className="space-y-4">
-            {pagesContent.about.values.map((value) => (
-              <div key={value.title} className="rounded-sm border border-[var(--editable-border)] bg-[var(--slot4-panel-bg)] p-6">
-                <h2 className="editable-display text-xl font-semibold">{value.title}</h2>
-                <p className="mt-3 text-sm leading-7 text-[var(--slot4-muted-text)]">{value.description}</p>
+      <main className={dc.shell.page}>
+        <section className={`${dc.shell.section} ${dc.shell.sectionYLg}`}>
+          <EditableReveal index={0}>
+            <p className={dc.type.eyebrow}>{pagesContent.about.badge}</p>
+          </EditableReveal>
+          <EditableReveal index={1}>
+            <h1 className={`${dc.type.displayTitle} mt-8 max-w-[18ch] text-[var(--slot4-page-text)]`}>
+              About <span className="editable-serif italic">{SITE_CONFIG.name}</span>.
+            </h1>
+          </EditableReveal>
+          <EditableReveal index={2}>
+            <p className={`${dc.type.lead} ${pal.mutedText} mt-10 max-w-2xl`}>{pagesContent.about.description}</p>
+          </EditableReveal>
+
+          <div className="mt-24 grid gap-16 lg:grid-cols-[1.2fr_1fr] lg:items-start">
+            <EditableReveal index={3}>
+              <div className="space-y-8">
+                {pagesContent.about.paragraphs.map((paragraph) => (
+                  <p key={paragraph} className={`${dc.type.body} ${pal.mutedText}`}>
+                    {paragraph}
+                  </p>
+                ))}
               </div>
-            ))}
-          </aside>
+            </EditableReveal>
+
+            <div className="grid gap-6">
+              {pagesContent.about.values.map((value, i) => (
+                <EditableReveal key={value.title} index={i + 4}>
+                  <div className="border-t border-[var(--editable-border-strong)] py-8">
+                    <p className="editable-serif text-[3rem] leading-none tracking-[-0.02em] text-[var(--slot4-accent)]/40">
+                      {String(i + 1).padStart(2, '0')}
+                    </p>
+                    <h2 className={`${dc.type.subsectionTitle} mt-6 text-[var(--slot4-page-text)]`}>{value.title}</h2>
+                    <p className={`${dc.type.body} ${pal.mutedText} mt-4`}>{value.description}</p>
+                  </div>
+                </EditableReveal>
+              ))}
+            </div>
+          </div>
         </section>
       </main>
     </EditableSiteShell>

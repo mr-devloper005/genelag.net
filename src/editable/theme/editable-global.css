@@ -1,22 +1,9 @@
 /*
-  Editable global theme layer.
-
-  Safe for UI editors / AI tools:
-  - Full site background
-  - Global text color
-  - Editable-only typography
-  - Selection color
-  - Scrollbar feel
-  - Article body typography accents
-
-  Do not add data fetching, scripts, or route logic here.
+  Editable global theme layer — olipy-inspired reference identity.
+  Serif display (Libre Baskerville) + Geist body on soft neutral canvas.
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
-
-/* Per-task display + body typefaces (consumed via task-themes.ts). */
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&family=Syne:wght@500;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
 
 body {
   background-color: var(--slot4-page-bg) !important;
@@ -25,58 +12,21 @@ body {
 }
 
 .editable-site-root {
-  /* Yelp-style clean sans, used for both display and body. */
-  --editable-font-display: 'Inter', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
-  --editable-font-body: 'Inter', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
-  /* Premium easing curve used across every hover + transition. */
-  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+  --editable-font-display: 'Libre Baskerville', 'Times New Roman', Georgia, serif;
+  --editable-font-body: 'Geist', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --editable-font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --ease-premium: cubic-bezier(0.2, 0.8, 0.2, 1);
   font-family: var(--editable-font-body);
+  font-feature-settings: 'ss01', 'ss02';
 }
 
-/*
-  Site-wide premium motion.
-
-  1. Unify the easing of every existing transition/hover to one refined curve.
-  2. Add a smooth "post open" entry animation that replays on each navigation
-     (driven by EditablePageMotion remounting the content per route).
-  Durations stay defined per-component via Tailwind utilities.
-*/
 .editable-site-root *,
 .editable-site-root *::before,
 .editable-site-root *::after {
   transition-timing-function: var(--ease-premium);
 }
 
-@keyframes editable-enter {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 22px, 0);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* The content region rises + fades on open; `backwards` clears the transform
-   afterwards so sticky sidebars keep working. */
-.editable-enter > * {
-  animation: editable-enter 0.6s var(--ease-premium) backwards;
-  will-change: transform, opacity;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .editable-enter > * {
-    animation: none;
-  }
-  .editable-site-root *,
-  .editable-site-root *::before,
-  .editable-site-root *::after {
-    transition-duration: 0.001ms !important;
-    animation-duration: 0.001ms !important;
-  }
-}
-
+/* Serif for all display headings */
 .editable-site-root h1,
 .editable-site-root h2,
 .editable-site-root h3,
@@ -84,7 +34,13 @@ body {
 .editable-display {
   font-family: var(--editable-font-display);
   letter-spacing: -0.02em;
+  color: var(--slot4-page-text);
+  font-weight: 400;
 }
+
+.editable-serif { font-family: var(--editable-font-display); font-weight: 400; }
+.editable-sans { font-family: var(--editable-font-body); }
+.editable-mono { font-family: var(--editable-font-mono); letter-spacing: 0; }
 
 .editable-site-root p,
 .editable-site-root li,
@@ -96,28 +52,81 @@ body {
   font-family: var(--editable-font-body);
 }
 
+/* Scroll-reveal (EditableReveal consumer) */
+.editable-reveal {
+  opacity: 1;
+  transform: none;
+  transition: opacity 900ms var(--ease-premium), transform 900ms var(--ease-premium);
+}
+.editable-reveal-hydrated {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  will-change: opacity, transform;
+}
+.editable-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes editable-enter {
+  from { opacity: 0; transform: translate3d(0, 22px, 0); }
+  to { opacity: 1; transform: none; }
+}
+
+.editable-enter > * {
+  animation: editable-enter 0.7s var(--ease-premium) backwards;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .editable-enter > * { animation: none; }
+  .editable-reveal, .editable-reveal-hydrated {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .editable-site-root *,
+  .editable-site-root *::before,
+  .editable-site-root *::after {
+    transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+  }
+}
+
+/* Text-slide button hover — mirrors reference */
+.editable-btn-slide { position: relative; overflow: hidden; }
+.editable-btn-slide .btn-text {
+  display: inline-block;
+  transition: transform 500ms var(--ease-premium);
+}
+.editable-btn-slide:hover .btn-text { transform: translateY(-140%); }
+.editable-btn-slide .btn-text-hover {
+  position: absolute;
+  inset: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: inherit;
+  transform: translateY(140%);
+  transition: transform 500ms var(--ease-premium);
+}
+.editable-btn-slide:hover .btn-text-hover { transform: translateY(0); }
+
 ::selection {
-  background: color-mix(in oklab, var(--slot4-accent-fill) 28%, transparent);
+  background: color-mix(in oklab, var(--slot4-accent-fill) 24%, transparent);
   color: var(--slot4-page-text);
 }
 
-::-webkit-scrollbar-track {
-  background: color-mix(in oklab, var(--slot4-page-bg) 88%, black);
-}
+::-webkit-scrollbar-track { background: color-mix(in oklab, var(--slot4-page-bg) 88%, black); }
+::-webkit-scrollbar-thumb { background: color-mix(in oklab, var(--slot4-accent) 45%, transparent); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: color-mix(in oklab, var(--slot4-accent) 68%, transparent); }
 
-::-webkit-scrollbar-thumb {
-  background: color-mix(in oklab, var(--slot4-accent) 45%, transparent);
-  border-radius: 999px;
+/* Article body accents (serif h2, ink links) */
+.article-content h2,
+.article-content h3 {
+  font-family: var(--editable-font-display);
+  color: var(--slot4-page-text);
+  letter-spacing: -0.02em;
 }
-
-::-webkit-scrollbar-thumb:hover {
-  background: color-mix(in oklab, var(--slot4-accent) 68%, transparent);
-}
-
-.article-content h2 {
-  color: var(--slot4-accent);
-}
-
-.article-content a {
-  color: var(--slot4-accent-fill);
-}
+.article-content a { color: var(--slot4-accent-fill); }
+.article-content p { line-height: 1.75; }
